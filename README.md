@@ -6,4 +6,4 @@
 Player Camera/Shooting  
 `2/6/22`  
 Projectile collision + Damage on hit  
-Enemy bealth + Health bar  
+Enemy health + Health bar  
