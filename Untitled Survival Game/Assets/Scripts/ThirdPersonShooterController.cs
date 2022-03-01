@@ -13,9 +13,12 @@ public class ThirdPersonShooterController : MonoBehaviour
     [SerializeField] private LayerMask aimColliderLayerMask = new LayerMask();
     [SerializeField] private Transform pfBulletProjectile;
     [SerializeField] private Transform spawnBulletPosition;
+    [SerializeField] private Transform inventory;
 
     private ThirdPersonController thirdPersonController;
     private StarterAssetsInputs starterAssetsInputs;
+
+    public bool ready;
 
     private void Awake()
     {
@@ -33,7 +36,7 @@ public class ThirdPersonShooterController : MonoBehaviour
         {
             mouseWorldPosition = raycastHit.point;
         }
-
+        
         if (starterAssetsInputs.aim)
         {
             aimVirtualCamera.gameObject.SetActive(true);
@@ -50,15 +53,33 @@ public class ThirdPersonShooterController : MonoBehaviour
         {
             aimVirtualCamera.gameObject.SetActive(false);
             thirdPersonController.SetSensitivity(normalSensitivity);
-            thirdPersonController.SetRotateOnMove(true);
+            thirdPersonController.SetRotateOnMove(false);
+
+            // remove this block to return movement to original
+            Vector3 worldAimTarget = mouseWorldPosition;
+            worldAimTarget.y = transform.position.y;
+            Vector3 aimDirection = (worldAimTarget - transform.position).normalized;
+            transform.forward = Vector3.Lerp(transform.forward, aimDirection, Time.deltaTime * 20f);
         }
 
-
-        if (starterAssetsInputs.shoot)
+        if (starterAssetsInputs.shoot && ready == false)
         {
-            Vector3 aimDir = (mouseWorldPosition - spawnBulletPosition.position).normalized;
-            Instantiate(pfBulletProjectile, spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
-            starterAssetsInputs.shoot = false;
+                Vector3 aimDir = (mouseWorldPosition - spawnBulletPosition.position).normalized;
+                Instantiate(pfBulletProjectile, spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
+                starterAssetsInputs.shoot = false;
+                ready = true;
+                StartCoroutine(AttackDelay());
         }
+        IEnumerator AttackDelay()
+        {
+            yield return new WaitForSeconds(1f);
+            ready = false;
+        }
+
+        if (starterAssetsInputs.interact)
+        {
+            
+        }
+        
         }
     }

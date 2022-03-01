@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 #endif
 
+
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
  */
 
@@ -11,6 +12,7 @@ namespace StarterAssets
 	[RequireComponent(typeof(CharacterController))]
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 	[RequireComponent(typeof(PlayerInput))]
+
 #endif
 	public class ThirdPersonController : MonoBehaviour
 	{
@@ -25,6 +27,7 @@ namespace StarterAssets
 		[Tooltip("Acceleration and deceleration")]
 		public float SpeedChangeRate = 10.0f;
 		public float Sensitivity = 1f;
+
 
 		[Space(10)]
 		[Tooltip("The height the player can jump")]
