@@ -4,6 +4,8 @@ using UnityEngine;
 using Cinemachine;
 using StarterAssets;
 
+
+
 public class ThirdPersonShooterController : MonoBehaviour
 {
 
@@ -13,11 +15,11 @@ public class ThirdPersonShooterController : MonoBehaviour
     [SerializeField] private LayerMask aimColliderLayerMask = new LayerMask();
     [SerializeField] private Transform pfBulletProjectile;
     [SerializeField] private Transform spawnBulletPosition;
-    [SerializeField] private Transform inventory;
 
     private ThirdPersonController thirdPersonController;
     private StarterAssetsInputs starterAssetsInputs;
 
+    // AttackDelay()
     public bool ready;
 
     private void Awake()
@@ -25,6 +27,7 @@ public class ThirdPersonShooterController : MonoBehaviour
         thirdPersonController = GetComponent<ThirdPersonController>();
         starterAssetsInputs = GetComponent<StarterAssetsInputs>();
     }
+
 
     private void Update()
     {
@@ -80,6 +83,5 @@ public class ThirdPersonShooterController : MonoBehaviour
         {
             
         }
-        
         }
     }
